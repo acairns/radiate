@@ -1,8 +1,17 @@
 <?php namespace Cairns\Radiate;
 
+use Cairns\Radiate\MethodNameInflector\MethodNameInflector;
+
 final class Emitter
 {
+    private $inflector;
+
     private $listeners = [];
+
+    public function __construct(MethodNameInflector $inflector)
+    {
+        $this->inflector = $inflector;
+    }
 
     public function addListener($listener)
     {
@@ -17,7 +26,13 @@ final class Emitter
     public function emit($event)
     {
         foreach ($this->listeners as $listener) {
-            $listener->handle($event);
+            $methodName = $this->inflector->inflect($event);
+
+            if (! method_exists($listener, $methodName)) {
+                continue;
+            }
+
+            $listener->{$methodName}($event);
         }
     }
 }
