@@ -1,7 +1,7 @@
 <?php namespace Cairns\Radiate\Tests;
 
 use Cairns\Radiate\Emitter;
-use Cairns\Radiate\MethodNameInflector\HandleInflector;
+use Cairns\Radiate\Inflector\HandleInflector;
 use Cairns\Radiate\Tests\Fixtures\RegularEvent;
 use Cairns\Radiate\Tests\Fixtures\RegularListener;
 

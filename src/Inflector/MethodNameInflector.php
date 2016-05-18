@@ -1,4 +1,4 @@
-<?php namespace Cairns\Radiate\MethodNameInflector;
+<?php namespace Cairns\Radiate\Inflector;
 
 interface MethodNameInflector
 {

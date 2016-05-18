@@ -1,6 +1,6 @@
 <?php namespace Cairns\Radiate;
 
-use Cairns\Radiate\MethodNameInflector\MethodNameInflector;
+use Cairns\Radiate\Inflector\MethodNameInflector;
 
 final class Emitter
 {

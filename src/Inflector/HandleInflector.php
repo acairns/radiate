@@ -1,4 +1,4 @@
-<?php namespace Cairns\Radiate\MethodNameInflector;
+<?php namespace Cairns\Radiate\Inflector;
 
 final class HandleInflector implements MethodNameInflector
 {
