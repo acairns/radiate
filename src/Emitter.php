@@ -13,4 +13,11 @@ final class Emitter
     {
         return $this->listeners;
     }
+
+    public function emit($event)
+    {
+        foreach ($this->listeners as $listener) {
+            $listener->handle($event);
+        }
+    }
 }
