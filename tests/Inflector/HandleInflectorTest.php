@@ -2,6 +2,7 @@
 
 use Cairns\Radiate\Inflector\HandleInflector;
 use Cairns\Radiate\Tests\Fixtures\RegularEvent;
+use Cairns\Radiate\Tests\Fixtures\RegularListener;
 
 class HandleInflectorTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,6 +10,11 @@ class HandleInflectorTest extends \PHPUnit_Framework_TestCase
     {
         $inflector = new HandleInflector;
 
-        $this->assertEquals('handle', $inflector->inflect(new RegularEvent));
+        $methodName = $inflector->inflect(
+            new RegularEvent,
+            new RegularListener
+        );
+
+        $this->assertEquals('handle', $methodName);
     }
 }

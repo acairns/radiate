@@ -2,5 +2,5 @@
 
 interface MethodNameInflector
 {
-    public function inflect($event);
+    public function inflect($event, $listener);
 }
