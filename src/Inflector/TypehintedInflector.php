@@ -18,7 +18,7 @@ final class TypehintedInflector implements MethodNameInflector
                 continue;
             }
 
-            if (get_class($event) != $params[0]->getType()) {
+            if (get_class($event) != $params[0]->getClass()->name) {
                 continue;
             }
 
