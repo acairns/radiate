@@ -8,3 +8,8 @@
 ```
 $ ./vendor/bin/phpunit
 ```
+
+## Code Sniffer
+```
+$ ./vendor/bin/phpcs --standard=PSR2 ./src/
+```
