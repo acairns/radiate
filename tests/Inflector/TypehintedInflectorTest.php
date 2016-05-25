@@ -6,7 +6,7 @@ use Cairns\Radiate\Tests\Fixtures\RegularListener;
 
 class TypehintedInflectorTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_it_does_something___()
+    public function test_it_recognises_the_handle_method()
     {
         $inflector = new TypehintedInflector;
 
