@@ -22,7 +22,7 @@ final class TypehintedInflector implements MethodNameInflector
                 continue;
             }
 
-            $matched[] = $method->getName();
+            $matched[] = $method->name;
         }
 
         return $matched;
