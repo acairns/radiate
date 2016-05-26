@@ -1,6 +1,6 @@
 <?php namespace Cairns\Radiate\Inflector;
 
-interface MethodNameInflector
+interface MethodInflector
 {
     public function inflect($event, $listener);
 }

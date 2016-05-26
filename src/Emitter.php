@@ -1,6 +1,6 @@
 <?php namespace Cairns\Radiate;
 
-use Cairns\Radiate\Inflector\MethodNameInflector;
+use Cairns\Radiate\Inflector\MethodInflector;
 
 final class Emitter
 {
@@ -8,7 +8,7 @@ final class Emitter
 
     private $listeners = [];
 
-    public function __construct(MethodNameInflector $inflector)
+    public function __construct(MethodInflector $inflector)
     {
         $this->inflector = $inflector;
     }
