@@ -30,9 +30,40 @@ $emitter = new Emitter(
 
 Several Inflectors are provided for common setups.
 
+#### HandleInflector
+
 The `HandleInflector` ensures the `handle()` method is returned.
 
+```
+final class DoSomething
+{
+    public function handle(SomeEvent $event)
+    {
+        // Do Something
+    }
+}
+```
+
+#### TypehintedInflector
+
 The `TypehintedInflector` ensures any method dependent on the type of event is returned.
+
+```
+final class DoMoreStuff
+{
+    public function whenSomethingHappened(SomethingHappened $event)
+    {
+        // Do Something
+    }
+
+    public function whenItWorked(ItWorked $event)
+    {
+        // Do Something
+    }
+}
+```
+
+When using the `TypehintedInflector`, you can define multiple public methods so that the same Event Listener can respond to different events.
 
 
 ## Running tests
