@@ -10,12 +10,11 @@ class TypehintedInflectorTest extends \PHPUnit_Framework_TestCase
     {
         $inflector = new TypehintedInflector;
 
-        $methods = $inflector->inflect(
+        $method = $inflector->inflect(
             new RegularEvent,
             new RegularListener
         );
 
-        $this->assertCount(1, $methods);
-        $this->assertContains('handle', $methods);
+        $this->assertContains('handle', $method);
     }
 }

@@ -26,19 +26,13 @@ final class Emitter
     public function emit($event)
     {
         foreach ($this->listeners as $listener) {
-            $methods = $this->inflector->inflect($event, $listener);
+            $method = $this->inflector->inflect($event, $listener);
 
-            if (! is_array($methods)) {
-                $methods = [$methods];
+            if (! method_exists($listener, $method)) {
+                continue;
             }
 
-            foreach ($methods as $method) {
-                if (! method_exists($listener, $method)) {
-                    continue;
-                }
-
-                $listener->{$method}($event);
-            }
+            $listener->{$method}($event);
         }
     }
 }

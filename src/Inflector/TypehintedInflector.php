@@ -9,8 +9,6 @@ final class TypehintedInflector implements MethodInflector
         $class = new ReflectionClass($listener);
         $methods = $class->getMethods();
 
-        $matched = [];
-
         foreach ($methods as $method) {
             $params = $method->getParameters();
 
@@ -22,9 +20,7 @@ final class TypehintedInflector implements MethodInflector
                 continue;
             }
 
-            $matched[] = $method->name;
+            return $method->name;
         }
-
-        return $matched;
     }
 }
