@@ -12,6 +12,7 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
         $emitter = new Emitter(
             new HandleInflector
         );
+
         $emitter->addListener(
             new RegularListener
         );
@@ -19,7 +20,7 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $emitter->getListeners());
     }
 
-    public function test_emitted_events_trigger_listener()
+    public function test_emitted_events_invoke_listener()
     {
         $event = new RegularEvent;
 
@@ -29,6 +30,7 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
         $emitter = new Emitter(
             new HandleInflector
         );
+
         $emitter->addListener($listener->reveal());
 
         $emitter->emit($event);
