@@ -32,7 +32,8 @@ final class Emitter
                 continue;
             }
 
-            $listener->{$method}($event);
+            $arguments = [$event] + func_get_args();
+            call_user_func_array([$listener, $method], $arguments);
         }
     }
 }

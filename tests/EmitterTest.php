@@ -35,4 +35,20 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
 
         $emitter->emit($event);
     }
+
+    public function test_it_passes_additional_arguments_to_the_listener()
+    {
+        $event = new RegularEvent;
+
+        $listener = $this->prophesize(RegularListener::class);
+        $listener->handle($event, 'one', 'two', 'three')->shouldBeCalled();
+
+        $emitter = new Emitter(
+            new HandleInflector
+        );
+
+        $emitter->addListener($listener->reveal());
+
+        $emitter->emit($event, 'one', 'two', 'three');
+    }
 }
