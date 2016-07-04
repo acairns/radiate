@@ -2,7 +2,7 @@
 
 final class HandleInflector implements MethodInflector
 {
-    public function inflect($event, $listener)
+    public function inflect($event, $listener) : string
     {
         return 'handle';
     }

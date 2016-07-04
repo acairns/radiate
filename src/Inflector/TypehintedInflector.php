@@ -4,7 +4,7 @@ use ReflectionClass;
 
 final class TypehintedInflector implements MethodInflector
 {
-    public function inflect($event, $listener)
+    public function inflect($event, $listener) : string
     {
         $class = new ReflectionClass($listener);
         $methods = $class->getMethods();
