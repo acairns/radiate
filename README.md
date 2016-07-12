@@ -111,5 +111,5 @@ $ ./vendor/bin/phpcs --standard=PSR2 ./src/
 
 ## Todo
 
-[ ] Middleware Pipeline for Invoking an Event
-[ ] Deal only with FQCN of Listeners to delay instance creation
+- [ ] Middleware Pipeline for Invoking an Event
+- [ ] Deal only with FQCN of Listeners to delay instance creation
