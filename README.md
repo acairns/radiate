@@ -19,10 +19,10 @@ Radiate requires a `MethodInflector` when being created - responsible for determ
 
 ```
 use Cairns\Radiate\Emitter;
-use Cairns\Radiate\Inflector\HandleInflector;
+use Cairns\Radiate\Inflector\HandleMethodInflector;
 
 $emitter = new Emitter(
-    new HandleInflector
+    new HandleMethodInflector
 );
 ```
 
@@ -30,9 +30,9 @@ $emitter = new Emitter(
 
 Several Inflectors are provided for common setups.
 
-#### HandleInflector
+#### HandleMethodInflector
 
-The `HandleInflector` ensures the `handle()` method is returned.
+The `HandleMethodInflector` ensures the `handle()` method is returned.
 
 ```
 final class DoSomething
