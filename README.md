@@ -111,7 +111,7 @@ $ ./vendor/bin/phpcs --standard=PSR2 ./src/
 
 ## Todo
 
-- [ ] Middleware Pipeline for Invoking an Event
+- [ ] Middleware Pipeline for Invoking a Listener
 - [ ] Deal only with FQCN of Listeners to delay instance creation
 - [ ] Bump to >=PHP7, update codebase (return types, typehint, etc.)
 - [ ] Extract examples into example directory
