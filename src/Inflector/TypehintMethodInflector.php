@@ -2,7 +2,7 @@
 
 use ReflectionClass;
 
-final class TypehintedInflector implements MethodInflector
+final class TypehintMethodInflector implements MethodInflector
 {
     public function inflect($event, $listener)
     {

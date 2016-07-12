@@ -44,9 +44,9 @@ final class DoSomething
 }
 ```
 
-#### TypehintedInflector
+#### TypehintMethodInflector
 
-The `TypehintedInflector` ensures any method dependent on the type of event is returned.
+The `TypehintMethodInflector` ensures any method dependent on the type of event is returned.
 
 ```
 final class DoMoreStuff
@@ -63,7 +63,7 @@ final class DoMoreStuff
 }
 ```
 
-When using the `TypehintedInflector`, you can define multiple public methods so that the same Event Listener can respond to different events.
+When using the `TypehintMethodInflector`, you can define multiple public methods so that the same Event Listener can respond to different events.
 
 
 ## Running tests

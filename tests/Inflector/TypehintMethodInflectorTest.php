@@ -1,14 +1,14 @@
 <?php namespace Cairns\Radiate\Tests\Inflector;
 
-use Cairns\Radiate\Inflector\TypehintedInflector;
+use Cairns\Radiate\Inflector\TypehintMethodInflector;
 use Cairns\Radiate\Tests\Fixtures\RegularEvent;
 use Cairns\Radiate\Tests\Fixtures\RegularListener;
 
-class TypehintedInflectorTest extends \PHPUnit_Framework_TestCase
+class TypehintMethodInflectorTest extends \PHPUnit_Framework_TestCase
 {
     public function test_it_recognises_the_handle_method()
     {
-        $inflector = new TypehintedInflector;
+        $inflector = new TypehintMethodInflector;
 
         $method = $inflector->inflect(
             new RegularEvent,
@@ -20,7 +20,7 @@ class TypehintedInflectorTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_ignores_listeners_without_any_methods()
     {
-        $inflector = new TypehintedInflector;
+        $inflector = new TypehintMethodInflector;
 
         $method = $inflector->inflect(
             new RegularEvent,
@@ -32,7 +32,7 @@ class TypehintedInflectorTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_ignores_listener_methods_without_parameters()
     {
-        $inflector = new TypehintedInflector;
+        $inflector = new TypehintMethodInflector;
 
         $method = $inflector->inflect(
             new RegularEvent,
