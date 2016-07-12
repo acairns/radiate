@@ -1,6 +1,6 @@
 <?php namespace Cairns\Radiate\Inflector;
 
-final class HandleInflector implements MethodInflector
+final class HandleMethodInflector implements MethodInflector
 {
     public function inflect($event, $listener)
     {

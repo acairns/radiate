@@ -1,7 +1,7 @@
 <?php namespace Cairns\Radiate\Tests;
 
 use Cairns\Radiate\Emitter;
-use Cairns\Radiate\Inflector\HandleInflector;
+use Cairns\Radiate\Inflector\HandleMethodInflector;
 use Cairns\Radiate\Tests\Fixtures\RegularEvent;
 use Cairns\Radiate\Tests\Fixtures\RegularListener;
 
@@ -10,7 +10,7 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
     public function test_it_accepts_a_new_listener()
     {
         $emitter = new Emitter(
-            new HandleInflector
+            new HandleMethodInflector
         );
 
         $emitter->addListener(
@@ -28,7 +28,7 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
         $listener->handle($event)->shouldBeCalled();
 
         $emitter = new Emitter(
-            new HandleInflector
+            new HandleMethodInflector
         );
 
         $emitter->addListener($listener->reveal());
@@ -44,7 +44,7 @@ class EmitterTest extends \PHPUnit_Framework_TestCase
         $listener->handle($event, 'one', 'two', 'three')->shouldBeCalled();
 
         $emitter = new Emitter(
-            new HandleInflector
+            new HandleMethodInflector
         );
 
         $emitter->addListener($listener->reveal());
