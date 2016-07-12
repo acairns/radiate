@@ -113,4 +113,5 @@ $ ./vendor/bin/phpcs --standard=PSR2 ./src/
 
 - [ ] Middleware Pipeline for Invoking an Event
 - [ ] Deal only with FQCN of Listeners to delay instance creation
-- [ ] Bump to >=PHP7
+- [ ] Bump to >=PHP7, update codebase (return types, typehint, etc.)
+- [ ] Extract examples into example directory
