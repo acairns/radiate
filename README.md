@@ -65,6 +65,39 @@ final class DoMoreStuff
 
 When using the `TypehintMethodInflector`, you can define multiple public methods so that the same Event Listener can respond to different events.
 
+## Simple Example
+
+```php
+final class WarpDriveEngaged
+{
+    private $speed;
+
+    public function __construct($speed)
+    {
+        $this->speed = $speed;
+    }
+
+    public function getSpeed()
+    {
+        return $this->speed;
+    }
+}
+
+final class GoVeryFast
+{
+    public function whenWarpDriveIsEngaged(WarpDriveEngaged $event)
+    {
+        // make the ship go very fast!
+    }
+}
+
+$emitter = new Cairns\Radiate\Emitter(
+    new Cairns\Radiate\Inflector\TypehintMethodInflector
+);
+
+$emitter->addListener(new GoVeryFast);
+$emitter->emit(new WarpDriveEngaged(9));
+```
 
 ## Running tests
 ```
