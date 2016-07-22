@@ -1,38 +1,41 @@
 <?php namespace Cairns\Radiate;
 
-use Cairns\Radiate\Inflector\MethodInflector;
+use Cairns\Radiate\Middleware\Middleware;
+use Cairns\Radiate\Middleware\InvalidMiddlewareException;
 
 final class Emitter
 {
-    private $inflector;
+    private $chain;
 
-    private $listeners = [];
-
-    public function __construct(MethodInflector $inflector)
+    /**
+     * @param Middleware[] $middleware
+     */
+    public function __construct($middleware)
     {
-        $this->inflector = $inflector;
-    }
-
-    public function addListener($listener)
-    {
-        $this->listeners[] = $listener;
-    }
-
-    public function getListeners()
-    {
-        return $this->listeners;
+        $this->chain = $this->createChain($middleware);
     }
 
     public function emit($event)
     {
-        foreach ($this->listeners as $listener) {
-            $method = $this->inflector->inflect($event, $listener);
+        return $this->chain($event);
+    }
 
-            if (! $method) {
-                continue;
+    private function createChain($middleware)
+    {
+        $last = function () {
+            // nothing
+        };
+
+        while ($link = array_pop($middleware)) {
+            if (! $link instanceof Middleware) {
+                throw new InvalidMiddlewareException('Shitballs!');
             }
 
-            call_user_func_array([$listener, $method], func_get_args());
+            $last = function ($event) use ($link, $last) {
+                return $link->execute($event, $last);
+            };
         }
+
+        return $last;
     }
 }
