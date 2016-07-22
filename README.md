@@ -99,12 +99,18 @@ $emitter->addListener(new DisableTransporters);
 $emitter->emit(new WarpDriveEngaged(9));
 ```
 
-## Running tests
+## Contributing
+
+Even though this is just an experiment, for now, I'm totally open to ideas. Shoot over a PR!
+
+If you decide to help out, here are some helpful things to check:
+
+### Running tests
 ```
 $ ./vendor/bin/phpunit
 ```
 
-## Code Sniffer
+### Code Sniffer
 ```
 $ ./vendor/bin/phpcs --standard=PSR2 ./src/
 ```
