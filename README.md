@@ -11,7 +11,8 @@ Radiate is a package for managing Events.
 
 ## Basic Usage
 
-Listeners are registered with an instance of the `Emitter` class.
+Simply create an instance of the `Emitter` and register listeners with it.
+
 
 ### Creating the Emitter
 
@@ -98,6 +99,14 @@ $emitter = new Cairns\Radiate\Emitter(
 $emitter->addListener(new DisableTransporters);
 $emitter->emit(new WarpDriveEngaged(9));
 ```
+
+## Inspiration
+
+This library is inspired by:
+
+- [SimpleBus/MessageBus](https://github.com/SimpleBus/MessageBus)
+- [thephpleague/tactician](https://github.com/thephpleague/tactician)
+- [thephpleague/event](https://github.com/thephpleague/event)
 
 ## Contributing
 
