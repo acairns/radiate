@@ -5,21 +5,34 @@ use Cairns\Radiate\Middleware\InvalidMiddlewareException;
 
 final class Emitter
 {
-    private $chain;
+    /**
+     * @var callable
+     */
+    private $pipeline;
 
     /**
      * @param Middleware[] $middleware
      */
     public function __construct($middleware)
     {
-        $this->chain = $this->createChain($middleware);
+        $this->pipeline = $this->createChain($middleware);
     }
 
+    /**
+     * @param $event
+     * @return mixed
+     */
     public function emit($event)
     {
-        return $this->chain($event);
+        $pipeline = $this->pipeline;
+
+        return $pipeline($event);
     }
 
+    /**
+     * @param Middleware[] $middleware
+     * @return callable
+     */
     private function createChain($middleware)
     {
         $last = function () {

@@ -1,6 +1,6 @@
 <?php namespace Cairns\Radiate\Locator;
 
-interface Locator
+interface ListenerLocator
 {
     public function locate($fqcn);
 }

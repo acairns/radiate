@@ -1,6 +1,6 @@
 <?php namespace Cairns\Radiate\Middleware;
 
-use Cairns\Radiate\Locator\Locator;
+use Cairns\Radiate\Locator\ListenerLocator;
 use Cairns\Radiate\Inflector\MethodInflector;
 
 class InvokeListenerMiddleware implements Middleware
@@ -11,7 +11,7 @@ class InvokeListenerMiddleware implements Middleware
     private $inflector;
 
     /**
-     * @var Locator
+     * @var ListenerLocator
      */
     private $locator;
 
@@ -19,10 +19,10 @@ class InvokeListenerMiddleware implements Middleware
 
     /**
      * @param MethodInflector $inflector
-     * @param Locator $locator
+     * @param ListenerLocator $locator
      * @param string[] $listeners
      */
-    public function __construct(MethodInflector $inflector, Locator $locator, $listeners)
+    public function __construct(MethodInflector $inflector, ListenerLocator $locator, $listeners)
     {
         $this->inflector = $inflector;
 
