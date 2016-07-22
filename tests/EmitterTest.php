@@ -1,9 +1,9 @@
 <?php namespace Cairns\Radiate\Tests;
 
 use Cairns\Radiate\Emitter;
+use Cairns\Radiate\Tests\Fixtures\RegularEvent;
 use Cairns\Radiate\Middleware\InvalidMiddlewareException;
 use Cairns\Radiate\Tests\Fixtures\Middleware\SpyingMiddleware;
-use Cairns\Radiate\Tests\Fixtures\RegularEvent;
 
 class EmitterTest extends \PHPUnit_Framework_TestCase
 {
