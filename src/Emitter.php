@@ -28,7 +28,7 @@ final class Emitter
         foreach ($this->listeners as $listener) {
             $method = $this->inflector->inflect($event, $listener);
 
-            if (! method_exists($listener, $method)) {
+            if (! $method) {
                 continue;
             }
 
