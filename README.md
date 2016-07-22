@@ -116,3 +116,5 @@ $ ./vendor/bin/phpcs --standard=PSR2 ./src/
 - [ ] Bump to >=PHP7, update codebase (return types, typehint, etc.)
 - [ ] Extract examples into example directory
 - [ ] Investigate a possible way to cache the event/listener configuration after reflection
+- [ ] Extract a registry, inject registery into emitter, registry to contain logic around add/get listener
+- [ ] Make registry serialisable, and constructable from a serialised registry
