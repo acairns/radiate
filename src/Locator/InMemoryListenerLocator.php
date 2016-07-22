@@ -1,16 +1,16 @@
 <?php namespace Cairns\Radiate\Locator;
 
-final class InMemoryLocator implements Locator
+final class InMemoryListenerLocator implements ListenerLocator
 {
-    private $things;
+    private $listeners;
 
-    public function __construct($things)
+    public function __construct($listeners)
     {
-        $this->things = $things;
+        $this->listeners = $listeners;
     }
 
     public function locate($fqcn)
     {
-        return $this->things[$fqcn];
+        return $this->listeners[$fqcn];
     }
 }
