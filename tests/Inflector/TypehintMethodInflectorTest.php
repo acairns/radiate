@@ -41,6 +41,18 @@ class TypehintMethodInflectorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($method);
     }
+
+    public function test_it_ignores_listener_methods_with_multiple_required_parameters()
+    {
+        $inflector = new TypehintMethodInflector;
+
+        $method = $inflector->inflect(
+            new RegularEvent,
+            new ListenerWithMethodRequiringMultipleParameters
+        );
+
+        $this->assertNull($method);
+    }
 }
 
 class ListenerWithoutAnyMethods {}
@@ -48,6 +60,14 @@ class ListenerWithoutAnyMethods {}
 class ListenerWithMethodWithoutParameters
 {
     public function handleSomething()
+    {
+
+    }
+}
+
+class ListenerWithMethodRequiringMultipleParameters
+{
+    public function handleSomething(RegularEvent $event, $required)
     {
 
     }
