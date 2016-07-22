@@ -15,6 +15,9 @@ class InvokeListenerMiddleware implements Middleware
      */
     private $locator;
 
+    /**
+     * @var string[]
+     */
     private $listeners;
 
     /**
@@ -42,7 +45,7 @@ class InvokeListenerMiddleware implements Middleware
 
             $listener = $this->locator->locate($listener);
 
-            call_user_func_array([$listener, $method], func_get_args());
+            $listener->$method($event);
         }
     }
 }
