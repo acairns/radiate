@@ -83,11 +83,11 @@ final class WarpDriveEngaged
     }
 }
 
-final class GoVeryFast
+final class DisableTransporters
 {
     public function whenWarpDriveIsEngaged(WarpDriveEngaged $event)
     {
-        // make the ship go very fast!
+        // safety first!
     }
 }
 
@@ -95,7 +95,7 @@ $emitter = new Cairns\Radiate\Emitter(
     new Cairns\Radiate\Inflector\TypehintMethodInflector
 );
 
-$emitter->addListener(new GoVeryFast);
+$emitter->addListener(new DisableTransporters);
 $emitter->emit(new WarpDriveEngaged(9));
 ```
 
@@ -115,3 +115,4 @@ $ ./vendor/bin/phpcs --standard=PSR2 ./src/
 - [ ] Deal only with FQCN of Listeners to delay instance creation
 - [ ] Bump to >=PHP7, update codebase (return types, typehint, etc.)
 - [ ] Extract examples into example directory
+- [ ] Investigate a possible way to cache the event/listener configuration after reflection
