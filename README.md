@@ -4,15 +4,22 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/acairns/radiate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/acairns/radiate/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/acairns/radiate/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/acairns/radiate/?branch=master)
 
-
 ---
+
+## Introduction
 
 Radiate is a package for managing Events.
 
-## Basic Usage
+### Basic Usage
 
-Simply create an instance of the `Emitter` and register listeners with it.
+Simply create an instance of the `Emitter` and register listeners with it. When you are ready, emit an event.
 
+```
+$emitter new Emitter($inflector);
+$emitter->addListener(new ExampleListener);
+
+$emitter->emit(new ExampleEvent);
+```
 
 ### Creating the Emitter
 
