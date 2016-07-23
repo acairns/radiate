@@ -1,10 +1,9 @@
 <?php namespace Cairns\Radiate\Tests\Middleware;
 
-use Cairns\Radiate\Inflector\HandleMethodInflector;
-use Cairns\Radiate\Locator\InMemoryListenerLocator;
-use Cairns\Radiate\Middleware\InvokeListenerMiddleware;
 use Cairns\Radiate\Tests\Fixtures\RegularEvent;
-use Cairns\Radiate\Tests\Fixtures\RegularListener;
+use Cairns\Radiate\Locator\InMemoryListenerLocator;
+use Cairns\Radiate\Inflector\HandleMethodInflector;
+use Cairns\Radiate\Middleware\InvokeListenerMiddleware;
 
 class InvokeListenerMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,9 +11,8 @@ class InvokeListenerMiddlewareTest extends \PHPUnit_Framework_TestCase
     {
         $listener = new TrackingListener;
 
-        $locator = new InMemoryListenerLocator([
-            TrackingListener::class => $listener
-        ]);
+        $locator = new InMemoryListenerLocator;
+        $locator->add($listener);
 
         $middleware = new InvokeListenerMiddleware(
             new HandleMethodInflector,
