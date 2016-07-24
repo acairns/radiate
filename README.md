@@ -12,40 +12,59 @@ Radiate is a package for managing Events.
 
 ### Basic Usage
 
-Simply create an instance of the `Emitter` and register listeners with it. When you are ready, emit an event.
+Simply create an instance of the `Emitter` and emit events!
 
 ```
-$emitter new Emitter($inflector);
-$emitter->addListener(new ExampleListener);
-
+$emitter new Emitter($middleware);
 $emitter->emit(new ExampleEvent);
 ```
 
 ### Creating the Emitter
 
-Radiate requires a `MethodInflector` when being created - responsible for determining the method to be invoked on the listener.
+Radiate requires a pipeline of middleware when being created. The main middleware required to invoke listeners is an
+instance of the `InvokeListenerMiddleware` class.
 
 ```
 use Cairns\Radiate\Emitter;
 use Cairns\Radiate\Inflector\HandleMethodInflector;
+use Cairns\Radiate\Middleware\InvokeListenerMiddleware;
 
-$emitter = new Emitter(
-    new HandleMethodInflector
+$invoker = new InvokeListenerMiddleware(
+    $registry,
+    $locator,
+    $inflector
 );
+
+$emitter = new Cairns\Radiate\Emitter([
+    $invoker
+]);
 ```
+
+In order to invoke a Listener, the middleware needs to know the available Listeners (`$registry`), how to create an
+instance of the subscribed Listeners (`$locator`) and how to determine which method should be invoked (`$inflector`).
+
+### Registrys
+
+A Registry is a simple class responsible of keeping track all of the subscribed Listeners.
+
+### Locators
+
+The responsibility of the locator is to take a Fully Qualified Class Name for a Listener and to return an instance. If
+you are using a Dependency Injection container, then this is where you want to resolve the concrete instance.
 
 ### Inflectors
 
+The job of the inflector is to determine which method should be called on a particular Listener given a specific Event.
 Several Inflectors are provided for common setups.
 
 #### HandleMethodInflector
 
-The `HandleMethodInflector` ensures the `handle()` method is returned.
+The `HandleMethodInflector` ensures the `handle()` method is returned. A Listener could look like this:
 
 ```
-final class DoSomething
+final class DisableTransporters
 {
-    public function handle(SomeEvent $event)
+    public function handle(WarpDriveEngaged $event)
     {
         // Do Something
     }
@@ -54,24 +73,26 @@ final class DoSomething
 
 #### TypehintMethodInflector
 
-The `TypehintMethodInflector` ensures any method dependent on the type of event is returned.
+The `TypehintMethodInflector` ensures any method dependent on the type of event is returned. A Listener could look like
+this:
 
 ```
-final class DoMoreStuff
+final class DisableTransporters
 {
-    public function whenSomethingHappened(SomethingHappened $event)
+    public function whenWarpDriveEngaged(WarpDriveEngaged $event)
     {
         // Do Something
     }
 
-    public function whenItWorked(ItWorked $event)
+    public function whenShieldsWereRaised(ShieldsWereRaised $event)
     {
         // Do Something
     }
 }
 ```
 
-When using the `TypehintMethodInflector`, you can define multiple public methods so that the same Event Listener can respond to different events.
+When using the `TypehintMethodInflector`, you can define multiple public methods so that the same Listener can respond
+to different events.
 
 ## Simple Example
 
@@ -99,11 +120,22 @@ final class DisableTransporters
     }
 }
 
-$emitter = new Cairns\Radiate\Emitter(
+$registry = new \Cairns\Radiate\Registry\TypehintedClassRegistry;
+$registry->register(DisableTransporters::class);
+
+$locator = new Cairns\Radiate\Locator\InMemoryListenerLocator;
+$locator->add(new DisableTransporters);
+
+$invoker = new \Cairns\Radiate\Middleware\InvokeListenerMiddleware(
+    $registry,
+    $locator,
     new Cairns\Radiate\Inflector\TypehintMethodInflector
 );
 
-$emitter->addListener(new DisableTransporters);
+$emitter = new Cairns\Radiate\Emitter([
+    $invoker
+]);
+
 $emitter->emit(new WarpDriveEngaged(9));
 ```
 
@@ -117,7 +149,7 @@ This library is inspired by:
 
 ## Contributing
 
-Even though this is just an experiment, for now, I'm totally open to ideas. Shoot over a PR!
+Even though this is just an experiment for now, I'm totally open to ideas. Shoot over a PR!
 
 If you decide to help out, here are some helpful things to check:
 
