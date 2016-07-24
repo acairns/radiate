@@ -7,7 +7,7 @@ use Cairns\Radiate\Locator\ListenerLocator;
 class InvokeListenerMiddleware implements Middleware
 {
     /**
-     * @var string[]
+     * @var Registry
      */
     private $listeners;
 
