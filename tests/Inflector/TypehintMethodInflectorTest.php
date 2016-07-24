@@ -18,6 +18,18 @@ class TypehintMethodInflectorTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('handle', $method);
     }
 
+    public function test_it_ignores_methods_which_are_not_public()
+    {
+        $inflector = new TypehintMethodInflector;
+
+        $method = $inflector->inflect(
+            new RegularEvent,
+            new ListenerWithNonPublicMethods
+        );
+
+        $this->assertNull($method);
+    }
+
     public function test_it_ignores_listeners_without_any_methods()
     {
         $inflector = new TypehintMethodInflector;
@@ -53,6 +65,30 @@ class TypehintMethodInflectorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($method);
     }
+
+    public function test_it_ignores_methods_which_do_not_have_exactly_one_parameter_which_is_also_required()
+    {
+        $inflector = new TypehintMethodInflector;
+
+        $method = $inflector->inflect(
+            new RegularEvent,
+            new ListenerWithMethodContainingOptionalParams
+        );
+
+        $this->assertNull($method);
+    }
+
+    public function test_it_ignores_methods_when_typehints_do_not_match()
+    {
+        $inflector = new TypehintMethodInflector;
+
+        $method = $inflector->inflect(
+            new RegularEvent,
+            new ListenerWithMethodThatDoesNotMatchEvent
+        );
+
+        $this->assertNull($method);
+    }
 }
 
 class ListenerWithoutAnyMethods {}
@@ -68,6 +104,35 @@ class ListenerWithMethodWithoutParameters
 class ListenerWithMethodRequiringMultipleParameters
 {
     public function handleSomething(RegularEvent $event, $required)
+    {
+
+    }
+}
+
+class ListenerWithNonPublicMethods
+{
+    private function privateMethod()
+    {
+
+    }
+
+    protected function protectedMethod()
+    {
+
+    }
+}
+
+class ListenerWithMethodContainingOptionalParams
+{
+    public function handle($optional = 1, RegularEvent $event)
+    {
+
+    }
+}
+
+class ListenerWithMethodThatDoesNotMatchEvent
+{
+    public function handle(\stdClass $event)
     {
 
     }
