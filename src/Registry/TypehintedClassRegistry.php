@@ -1,10 +1,12 @@
-<?php namespace Cairns\Radiate\Inflector;
+<?php namespace Cairns\Radiate\Registry;
 
 use ReflectionClass;
 
-final class TypehintMethodInflector implements MethodInflector
+final class TypehintedClassRegistry implements Registry
 {
-    public function inflect($event, $listener)
+    private $listeners;
+
+    public function register($listener)
     {
         $class = new ReflectionClass($listener);
 
@@ -31,11 +33,14 @@ final class TypehintMethodInflector implements MethodInflector
                 continue;
             }
 
-            if (get_class($event) !== (string) $type) {
-                continue;
-            }
-
-            return $method->name;
+            $this->listeners[(string) $type][] = $listener;
         }
+    }
+
+    public function find($event)
+    {
+        $eventClassName = get_class($event);
+
+        return $this->listeners[$eventClassName];
     }
 }

@@ -1,14 +1,15 @@
 <?php namespace Cairns\Radiate\Middleware;
 
-use Cairns\Radiate\Locator\ListenerLocator;
 use Cairns\Radiate\Inflector\MethodInflector;
+use Cairns\Radiate\Registry\Registry;
+use Cairns\Radiate\Locator\ListenerLocator;
 
 class InvokeListenerMiddleware implements Middleware
 {
     /**
-     * @var MethodInflector
+     * @var string[]
      */
-    private $inflector;
+    private $listeners;
 
     /**
      * @var ListenerLocator
@@ -16,27 +17,33 @@ class InvokeListenerMiddleware implements Middleware
     private $locator;
 
     /**
-     * @var string[]
+     * @var MethodInflector
      */
-    private $listeners;
+    private $inflector;
 
     /**
-     * @param MethodInflector $inflector
+     * @param Registry $listeners
      * @param ListenerLocator $locator
-     * @param string[] $listeners
+     * @param MethodInflector $inflector
      */
-    public function __construct(MethodInflector $inflector, ListenerLocator $locator, $listeners)
+    public function __construct(Registry $listeners, ListenerLocator $locator, MethodInflector $inflector)
     {
-        $this->inflector = $inflector;
+        $this->listeners = $listeners;
 
         $this->locator = $locator;
 
-        $this->listeners = $listeners;
+        $this->inflector = $inflector;
     }
 
     public function execute($event, callable $next)
     {
-        foreach ($this->listeners as $listener) {
+        $listeners = $this->listeners->find($event);
+
+        if (! $listeners) {
+            return;
+        }
+
+        foreach ($listeners as $listener) {
             $method = $this->inflector->inflect($event, $listener);
 
             if (! $method) {
@@ -45,7 +52,7 @@ class InvokeListenerMiddleware implements Middleware
 
             $listener = $this->locator->locate($listener);
 
-            $listener->$method($event);
+            call_user_func([$listener, $method], $event);
         }
     }
 }
