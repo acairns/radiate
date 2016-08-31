@@ -1,5 +1,5 @@
 {
-  "name": "cairns/radiate",
+  "name": "acairns/radiate",
   "description": "Radiate event emitter",
   "keywords": ["event", "emitter", "listener"],
   "license": "MIT",
