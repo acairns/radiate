@@ -41,7 +41,7 @@ final class Emitter
 
         while ($link = array_pop($middleware)) {
             if (! $link instanceof Middleware) {
-                throw new InvalidMiddlewareException('Shitballs!');
+                throw new InvalidMiddlewareException;
             }
 
             $last = function ($event) use ($link, $last) {
