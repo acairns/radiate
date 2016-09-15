@@ -8,14 +8,14 @@ final class Emitter
     /**
      * @var callable
      */
-    private $pipeline;
+    private $chain;
 
     /**
      * @param Middleware[] $middleware
      */
     public function __construct($middleware)
     {
-        $this->pipeline = $this->createChain($middleware);
+        $this->chain = $this->createChain($middleware);
     }
 
     /**
@@ -24,9 +24,9 @@ final class Emitter
      */
     public function emit($event)
     {
-        $pipeline = $this->pipeline;
+        $chain = $this->chain;
 
-        return $pipeline($event);
+        return $chain($event);
     }
 
     /**
