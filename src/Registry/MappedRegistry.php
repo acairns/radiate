@@ -2,7 +2,7 @@
 
 final class MappedRegistry implements Registry
 {
-    private $listeners;
+    private $listeners = [];
 
     public function register($event, $listener)
     {
@@ -12,6 +12,10 @@ final class MappedRegistry implements Registry
     public function find($event)
     {
         $eventClassName = get_class($event);
+
+        if (! array_key_exists($eventClassName, $this->listeners)) {
+            return [];
+        }
 
         return $this->listeners[$eventClassName];
     }
