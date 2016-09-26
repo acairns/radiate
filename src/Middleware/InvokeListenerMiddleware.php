@@ -40,7 +40,7 @@ class InvokeListenerMiddleware implements Middleware
         $listeners = $this->listeners->find($event);
 
         if (! $listeners) {
-            return;
+            return $next($event);
         }
 
         foreach ($listeners as $listener) {
@@ -54,5 +54,7 @@ class InvokeListenerMiddleware implements Middleware
 
             call_user_func([$listener, $method], $event);
         }
+
+        return $next($event);
     }
 }
