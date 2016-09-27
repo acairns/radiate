@@ -20,6 +20,6 @@ final class InMemoryRecorder implements Recorder
 
     public function record($events)
     {
-        $this->events[] = array_merge($this->events, $events);
+        $this->events = array_merge($this->events, $events);
     }
 }
